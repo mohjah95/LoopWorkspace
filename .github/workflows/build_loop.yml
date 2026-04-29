@@ -230,12 +230,12 @@ jobs:
       - name: Sync clock
         run: sudo sntp -sS time.windows.com
         
-# Select correct Xcode
-- name: Select Xcode
-  run: sudo xcode-select -s /Applications/Xcode_15.4.app
+          # Select correct Xcode
+          - name: Select Xcode
+            run: sudo xcode-select -s /Applications/Xcode_15.4.app
 
-- name: Check Xcode version
-  run: xcodebuild -version
+          - name: Check Xcode version
+            run: xcodebuild -version
       # Build signed Loop IPA file
       - name: Fastlane Build & Archive
         run: bundle exec fastlane build_loop
