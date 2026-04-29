@@ -226,20 +226,22 @@ jobs:
       - name: Install Project Dependencies
         run: bundle install
 
-               # Sync the GitHub runner clock with the Windows time server (workaround as suggested in https://github.com/actions/runner/issues/2996)
-          - name: Sync clock
-            run: sudo sntp -sS time.windows.com
+- name: Install Project Dependencies
+  run: bundle install
 
-          # Build signed Loop IPA file
-          - name: Fastlane Build & Archive
-            run: bundle exec fastlane build_loop
-            env:
-              TEAMID: ${{ secrets.TEAMID }}
-              GH_PAT: ${{ secrets.GH_PAT }}
-              FASTLANE_KEY_ID: ${{ secrets.FASTLANE_KEY_ID }}
-              FASTLANE_ISSUER_ID: ${{ secrets.FASTLANE_ISSUER_ID }}
-              FASTLANE_KEY: ${{ secrets.FASTLANE_KEY }}
-              MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+- name: Sync clock
+  run: sudo sntp -sS time.windows.com
+
+# Build signed Loop IPA file
+- name: Fastlane Build & Archive
+  run: bundle exec fastlane build_loop
+  env:
+    TEAMID: ${{ secrets.TEAMID }}
+    GH_PAT: ${{ secrets.GH_PAT }}
+    FASTLANE_KEY_ID: ${{ secrets.FASTLANE_KEY_ID }}
+    FASTLANE_ISSUER_ID: ${{ secrets.FASTLANE_ISSUER_ID }}
+    FASTLANE_KEY: ${{ secrets.FASTLANE_KEY }}
+    MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 
       # Upload to TestFlight
       - name: Fastlane upload to TestFlight
